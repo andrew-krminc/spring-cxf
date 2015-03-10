@@ -38,10 +38,21 @@ And the client prints out the response returned by the server:
 Logging interceptors are also configured to demonstrate the raw SOAP payloads.  Corresponding the the above interaction this gives:
 
     Request:
-    <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"><soap:Body><ns4:ProvideAndRegisterDocumentSetRequest xmlns="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns3="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns4="urn:ihe:iti:xds-b:2007" xmlns:ns5="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"><ns3:SubmitObjectsRequest id="abc123" comment="This is the first demo request"/><ns4:Document id="docId">c29tZSBkdW1teSBmaWxl</ns4:Document></ns4:ProvideAndRegisterDocumentSetRequest></soap:Body></soap:Envelope>
+    <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+      <soap:Body>
+        <ns4:ProvideAndRegisterDocumentSetRequest xmlns:ns4="urn:ihe:iti:xds-b:2007" xmlns="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns3="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns5="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0">
+          <ns3:SubmitObjectsRequest id="abc123" comment="This is the first demo request"/>
+          <ns4:Document id="docId">c29tZSBkdW1teSBmaWxl</ns4:Document>
+        </ns4:ProvideAndRegisterDocumentSetRequest>
+      </soap:Body>
+    </soap:Envelope>
     
     Response:
-    <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"><soap:Body><ns2:RegistryResponse xmlns="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns3="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns4="urn:ihe:iti:xds-b:2007" xmlns:ns5="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" status="Super- Thanks for the document" requestId="abc123"/></soap:Body></soap:Envelope>
+    <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+      <soap:Body>
+        <ns2:RegistryResponse xmlns:ns2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns3="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns4="urn:ihe:iti:xds-b:2007" xmlns:ns5="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" status="Super- Thanks for the document" requestId="abc123"/>
+      </soap:Body>
+    </soap:Envelope>
 
 ## Generate client 
 The same WSDL available at `api/hello?wsdl` is included as a resource for code generation purposes.  To compile code from the WSDL definition, in `build.gradle`, set the property `wsdl2java.enabled = ` to `true`, then execute:
