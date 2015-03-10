@@ -54,8 +54,8 @@ Logging interceptors are also configured to demonstrate the raw SOAP payloads.  
       </soap:Body>
     </soap:Envelope>
 
-## Generate client 
-The same WSDL available at `api/hello?wsdl` is included as a resource for code generation purposes.  To compile code from the WSDL definition, in `build.gradle`, set the property `wsdl2java.enabled = ` to `true`, then execute:
+## Generated code
+To compile code from the WSDL definition, in `build.gradle`, set the property `wsdl2java.enabled = ` to `true`, then execute:
 
     ./gradlew ws-client:wsdl2java
     
