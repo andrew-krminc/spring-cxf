@@ -1,5 +1,7 @@
 package demo.spring.service;
 
+import ihe.iti.xds_b._2007.DocumentRepository_Port_Soap12Impl;
+
 import org.apache.cxf.Bus;
 import org.apache.cxf.interceptor.LoggingInInterceptor;
 import org.apache.cxf.interceptor.LoggingOutInterceptor;
@@ -45,6 +47,18 @@ public class Application {
         return endpoint;
     }
 
+    @Bean
+    // <jaxws:endpoint id="helloWorld" implementor="demo.spring.service.HelloWorldImpl" address="/HelloWorld"/>
+    public EndpointImpl xdsBService() {
+        Bus bus = (Bus) applicationContext.getBean(Bus.DEFAULT_BUS_ID);
+        Object implementor = new DocumentRepository_Port_Soap12Impl();
+        EndpointImpl endpoint = new EndpointImpl(bus, implementor);
+        endpoint.publish("/xdsb");
+        endpoint.getServer().getEndpoint().getInInterceptors().add(new LoggingInInterceptor());
+        endpoint.getServer().getEndpoint().getOutInterceptors().add(new LoggingOutInterceptor());
+        return endpoint;
+    }
+    
     // Might be handy when testing/deploying to standalone tomcat, to keep same addresses
     // @Bean
     // public EmbeddedServletContainerFactory embeddedServletContainerFactory() {
