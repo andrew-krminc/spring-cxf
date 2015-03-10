@@ -24,6 +24,7 @@ dependencies {
     compile 'org.apache.cxf:cxf-rt-frontend-jaxws:3.0.4'
     compile 'org.apache.cxf:cxf-rt-transports-http:3.0.4'
     compile 'org.apache.cxf:cxf-core:3.0.4'
+    compile 'commons-io:commons-io:2.4'
     
     // rsna spec
     compile files('../lib/xdsb-spec.jar')

@@ -1,7 +1,5 @@
 package demo.spring.service;
 
-import ihe.iti.xds_b._2007.DocumentRepository_Port_Soap12Impl;
-
 import org.apache.cxf.Bus;
 import org.apache.cxf.interceptor.LoggingInInterceptor;
 import org.apache.cxf.interceptor.LoggingOutInterceptor;
@@ -15,6 +13,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
+
+import demo.spring.service.custom.BasicDocRepoServiceImpl;
 
 @Configuration
 @EnableAutoConfiguration
@@ -51,7 +51,7 @@ public class Application {
     // <jaxws:endpoint id="helloWorld" implementor="demo.spring.service.HelloWorldImpl" address="/HelloWorld"/>
     public EndpointImpl xdsBService() {
         Bus bus = (Bus) applicationContext.getBean(Bus.DEFAULT_BUS_ID);
-        Object implementor = new DocumentRepository_Port_Soap12Impl();
+        Object implementor = new BasicDocRepoServiceImpl();
         EndpointImpl endpoint = new EndpointImpl(bus, implementor);
         endpoint.publish("/xdsb");
         endpoint.getServer().getEndpoint().getInInterceptors().add(new LoggingInInterceptor());
