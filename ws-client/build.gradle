@@ -1,6 +1,5 @@
 apply plugin: 'java'
 apply plugin: 'eclipse'
-apply plugin :'no.nils.wsdl2java'
 
 sourceCompatibility = 1.8
 version = '1.0'
@@ -29,12 +28,6 @@ dependencies {
 buildscript {
     repositories {
         mavenCentral()
-        // for wsdl2java
-        jcenter()
-    }
-    dependencies {
-        // for wsdl2java
-        classpath 'no.nils:wsdl2java:0.6'
     }
 }
 uploadArchives {
@@ -45,13 +38,3 @@ uploadArchives {
     }
 }
 
-wsdl2java{
-    wsdlsToGenerate = [
-            ["$projectDir/src/main/resources/wsdl/hello.wsdl"]
-    ]
-    generatedWsdlDir = file("$projectDir/generatedsources")
-    wsdlDir = file("$projectDir/src/main/resources/wsdl")
-    cxfVersion = "3.0.4"
-}
-// To enable, change this to true and it will generate the client code
-wsdl2java.enabled = false;

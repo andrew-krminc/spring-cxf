@@ -13,15 +13,10 @@ import oasis.names.tc.ebxml_regrep.xsd.lcm._3.SubmitObjectsRequest;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import demo.spring.service.HelloWorld;
 
 public class ClientDemo {
 
     public static void main(String args[]) {
-        // demonstrateHelloWorld();
         demonstrateXdsB();
 
     }
@@ -51,15 +46,5 @@ public class ClientDemo {
         submitObjects.setComment("This is the first demo request");
 
         requestType.setSubmitObjectsRequest(submitObjects);
-    }
-
-    private static void demonstrateHelloWorld() {
-        JaxWsProxyFactoryBean factory = new JaxWsProxyFactoryBean();
-        factory.setAddress("http://localhost:8080/api/hello");
-        factory.setServiceClass(HelloWorld.class);
-
-        HelloWorld client = (HelloWorld) factory.create();
-        String response = client.sayHi("hi, you beautiful world!");
-        System.out.println("Response from server: " + response);
     }
 }

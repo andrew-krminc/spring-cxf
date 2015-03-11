@@ -37,18 +37,6 @@ public class Application {
     // Replaces cxf-servlet.xml
     @Bean
     // <jaxws:endpoint id="helloWorld" implementor="demo.spring.service.HelloWorldImpl" address="/HelloWorld"/>
-    public EndpointImpl helloService() {
-        Bus bus = (Bus) applicationContext.getBean(Bus.DEFAULT_BUS_ID);
-        Object implementor = new HelloWorldImpl();
-        EndpointImpl endpoint = new EndpointImpl(bus, implementor);
-        endpoint.publish("/hello");
-        endpoint.getServer().getEndpoint().getInInterceptors().add(new LoggingInInterceptor());
-        endpoint.getServer().getEndpoint().getOutInterceptors().add(new LoggingOutInterceptor());
-        return endpoint;
-    }
-
-    @Bean
-    // <jaxws:endpoint id="helloWorld" implementor="demo.spring.service.HelloWorldImpl" address="/HelloWorld"/>
     public EndpointImpl xdsBService() {
         Bus bus = (Bus) applicationContext.getBean(Bus.DEFAULT_BUS_ID);
         Object implementor = new BasicDocRepoServiceImpl();
@@ -58,7 +46,7 @@ public class Application {
         endpoint.getServer().getEndpoint().getOutInterceptors().add(new LoggingOutInterceptor());
         return endpoint;
     }
-    
+
     // Might be handy when testing/deploying to standalone tomcat, to keep same addresses
     // @Bean
     // public EmbeddedServletContainerFactory embeddedServletContainerFactory() {
