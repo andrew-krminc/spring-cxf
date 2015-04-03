@@ -3,7 +3,7 @@
 Demonstrates ability to host a JAX-WS service using Spring Boot and Apache CXF with zero XML configuration.
 
 ## Run the Service
-In a terminal, execute: `./gradlew bootRun`
+In a terminal, execute: `./gradlew ws-server:bootRun`
 
 Alternatively can be run in your IDE of choice by running `demo.spring.service.Application.java` as a normal Java application.
 
@@ -21,6 +21,9 @@ The WSDLs are available at a service endpoint by appending `?wsdl` after the ser
 The service can be tested with any standard WS tool, such as SoapUI or a client using classes compiled against the WSDL.
 
 The `ws-client ` module includes an example of accessing the service using code generated using wsdl2java as described above.  
+
+### With the server running
+In a terminal, execute: `./gradlew ws-client:bootRun`
 
 With the server running, execute the class `demo.service.client.ClientDemo.java` which contains a `main()` method.  Upon running, the XDS.b example will upload a file from the resources directory.
 
