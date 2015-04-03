@@ -13,12 +13,15 @@ import oasis.names.tc.ebxml_regrep.xsd.lcm._3.SubmitObjectsRequest;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+@SpringBootApplication
 public class ClientDemo {
 
     public static void main(String args[]) {
+        SpringApplication.run(ClientDemo.class, args);
         demonstrateXdsB();
-
     }
 
     private static void demonstrateXdsB() {
