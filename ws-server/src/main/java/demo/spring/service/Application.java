@@ -1,5 +1,7 @@
 package demo.spring.service;
 
+import javax.xml.ws.soap.SOAPBinding;
+
 import org.apache.cxf.Bus;
 import org.apache.cxf.interceptor.LoggingInInterceptor;
 import org.apache.cxf.interceptor.LoggingOutInterceptor;
@@ -44,6 +46,10 @@ public class Application {
         endpoint.publish("/xdsb");
         endpoint.getServer().getEndpoint().getInInterceptors().add(new LoggingInInterceptor());
         endpoint.getServer().getEndpoint().getOutInterceptors().add(new LoggingOutInterceptor());
+        // Enable MTOM for large attachments
+        SOAPBinding binding = (SOAPBinding) endpoint.getBinding();
+        binding.setMTOMEnabled(true);
+        // mtom enabled
         return endpoint;
     }
 

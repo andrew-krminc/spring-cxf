@@ -6,9 +6,13 @@ import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
-import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.CopyOption;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
@@ -30,10 +34,15 @@ public class BasicDocRepoServiceImpl extends DocumentRepository_Port_Soap12Impl 
 
             try {
                 Object content = doc.getValue().getContent();
-                if (content instanceof ByteArrayInputStream) {
-                    String contents = IOUtils.toString((ByteArrayInputStream) content);
-                    log.info("Retrieved contents of file: " + contents);
+                if (content instanceof InputStream) {
+                    log.info("Received an InputStream");
+                    InputStream contents = (InputStream) content;
                     writeContentsAsFile(doc.getId(), contents);
+                    // String contents = IOUtils.toString((ByteArrayInputStream) content);
+                    // log.info("Retrieved contents of file: " + contents);
+                    // writeContentsAsFile(doc.getId(), contents);
+                } else {
+                    log.info("Contents type is: " + content.getClass());
                 }
             } catch (Exception e) {
                 log.error(e.getMessage(), e);
@@ -47,18 +56,22 @@ public class BasicDocRepoServiceImpl extends DocumentRepository_Port_Soap12Impl 
         return response;
     }
 
-    private void writeContentsAsFile(String docId, String contents) {
+    private void writeContentsAsFile(String docId, InputStream contents) {
         File temp;
         try {
-            temp = File.createTempFile(docId, ".txt");
-            FileUtils.writeStringToFile(temp, contents, "UTF-8");
+            temp = File.createTempFile(docId, ".tmp");
             String path = temp.getAbsolutePath();
-            log.info("Stored file with id: " + docId + " to: " + path);
+            log.info("Beginning to write file with id: " + docId + " to: " + path);
+            
+            Files.copy(contents, temp.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            
+            log.info("Finished writing file with id: " + docId + " to: " + path);
         } catch (IOException e) {
             log.error("Unable to write to file with id: " + docId + ": " + e.getMessage(), e);
         }
 
     }
+
 
     @Override
     public RetrieveDocumentSetResponseType documentRepositoryRetrieveDocumentSet(RetrieveDocumentSetRequestType arg0) {
